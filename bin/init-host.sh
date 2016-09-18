@@ -4,7 +4,7 @@ set -e
 
 Containers=$@
 ST=true
-script=/opt/bin/chhhost.sh
+script=/chhost.sh
 getContainerIp="docker inspect -f {{.NetworkSettings.IPAddress}}"
 getContainerStatus="docker inspect -f {{.State.Running}}"
 
@@ -59,8 +59,8 @@ if [[ $ST ]]; then
         ip=`$getContainerIp $i`
         for j in $Containers
         do
-            #docker exec -it $j `$script` $ip $i
-            echo $ip $i
+            docker exec -it $j $script $ip $i
+            echo "$j: $ip $i have updated."
         done
     done
 fi

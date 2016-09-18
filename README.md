@@ -14,3 +14,21 @@ bin/build.sh local
 # 在线生成镜像
 bin/build.sh
 ```
+
+## 部署容器
+```sh
+# 启动hadoop集群
+bin/hadoop-cluster.sh start 3
+
+# 卸载hadoop集群
+bin/hadoop-cluster.sh stop 3
+```
+
+## 启动/关闭hadoop集群
+```sh
+$HADOOP_HOME/sbin/start-all.sh
+$HADOOP_HOME/sbin/stop-all.sh
+
+# 验证服务是否启动
+$JAVA_HOME/bin/jps -l
+```

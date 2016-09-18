@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 set -e
 
@@ -7,9 +7,9 @@ IP=$1
 HOST=$2
 
 if [[ x$HOST != x ]]; then
-    sed -i "/$HOST/d" /etc/hosts
+    cp /etc/hosts /tz && sed -i "/$HOST/d" /tz && cp /tz /etc/hosts && rm /tz
 fi
 
 if [[ x$IP != x && x$HOST != x ]]; then
-    echo "$IP   $HOST"
+    echo "$IP      $HOST" >> /etc/hosts
 fi
