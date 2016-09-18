@@ -2,18 +2,10 @@ FROM ubuntu:16.04
 MAINTAINER Darebeat <fengwei2010@126.com>
 
 ADD ./src /
+ADD ./jdk1.7.0_60.tar.gz /opt
+ADD ./hadoop-2.7.2.tar.gz /opt
 RUN apt-get update
 RUN apt-get install vim openssh-server -y
-
-# java
-RUN wget http://119.254.110.32:8081/download/jdk1.7.0_60.tar.gz && \
-    tar -xvzf jdk1.7.0_60.tar.gz -C /opt && \
-    rm -rf jdk1.7.0_60.tar.gz
-
-# hadoop
-RUN wget http://mirrors.cnnic.cn/apache/hadoop/common/hadoop-2.7.2/hadoop-2.7.2.tar.gz && \
-    tar -xvzf hadoop-2.7.2.tar.gz -C /opt && \
-    rm -rf hadoop-2.7.2.tar.gz
 
 # ENV
 ENV JAVA_HOME /opt/jdk1.7.0_60
