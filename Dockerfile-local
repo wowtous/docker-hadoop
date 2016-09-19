@@ -4,13 +4,13 @@ MAINTAINER Darebeat <fengwei2010@126.com>
 ADD ./src /
 ADD ./jdk1.7.0_60.tar.gz /opt
 ADD ./hadoop-2.7.2.tar.gz /opt
-RUN apt-get update
-RUN apt-get install vim openssh-server -y
+RUN apt-get update && apt-get install vim openssh-server -y
 
 # ENV
 ENV JAVA_HOME /opt/jdk1.7.0_60
 ENV HADOOP_HOME /opt/hadoop-2.7.2
 ENV HADOOP_CONF_DIR $HADOOP_HOME/etc/hadoop
+ENV PATH $JAVA_HOME/bin:$HADOOP_HOME/bin:$PATH
 
 RUN cp /opt/config/* $HADOOP_CONF_DIR && rm -rf /opt/config
 RUN sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/opt/jdk1.7.0_60\nexport HADOOP_HOME=/opt/hadoop-2.7.2\n:' /opt/hadoop-2.7.2/etc/hadoop/hadoop-env.sh

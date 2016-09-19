@@ -2,8 +2,7 @@ FROM ubuntu:16.04
 MAINTAINER Darebeat <fengwei2010@126.com>
 
 ADD ./src /
-RUN apt-get update
-RUN apt-get install vim openssh-server -y
+RUN apt-get update && apt-get install vim openssh-server -y
 
 # java
 RUN wget http://119.254.110.32:8081/download/jdk1.7.0_60.tar.gz && \
@@ -19,6 +18,7 @@ RUN wget http://mirrors.cnnic.cn/apache/hadoop/common/hadoop-2.7.2/hadoop-2.7.2.
 ENV JAVA_HOME /opt/jdk1.7.0_60
 ENV HADOOP_HOME /opt/hadoop-2.7.2
 ENV HADOOP_CONF_DIR $HADOOP_HOME/etc/hadoop
+ENV PATH $JAVA_HOME/bin:$HADOOP_HOME/bin:$PATH
 
 RUN cp /opt/config/* $HADOOP_CONF_DIR && rm -rf /opt/config
 RUN sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/opt/jdk1.7.0_60\nexport HADOOP_HOME=/opt/hadoop-2.7.2\n:' /opt/hadoop-2.7.2/etc/hadoop/hadoop-env.sh

@@ -32,3 +32,7 @@ $HADOOP_HOME/sbin/stop-all.sh
 # 验证服务是否启动
 $JAVA_HOME/bin/jps -l
 ```
+
+## 网页管理地址
++ NameNode: [http://localhost:8088](http://localhost:8088)
++ ResourceManager: [http://localhost:50070](http://localhost:50070)

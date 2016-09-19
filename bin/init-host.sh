@@ -5,6 +5,7 @@ set -e
 Containers=$@
 ST=true
 script=/chhost.sh
+HADOOP_CONF_DIR=/opt/hadoop-2.7.2/etc/hadoop
 getContainerIp="docker inspect -f {{.NetworkSettings.IPAddress}}"
 getContainerStatus="docker inspect -f {{.State.Running}}"
 
@@ -61,6 +62,10 @@ if [[ $ST ]]; then
         do
             docker exec -it $j $script $ip $i
             echo "$j: $ip $i have updated."
+            if [[ $i != "master" ]]; then
+                echo "The $j container slaves config changed: $i"
+                docker exec -it $j bash -c "echo '$i' >> $HADOOP_CONF_DIR/slaves"
+            fi
         done
     done
 fi
