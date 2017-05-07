@@ -1,8 +1,9 @@
 # docker-hadoop
 
 ## 准备软件包
-1. [jdk1.7.0_60](http://119.254.110.32:8081/download/jdk1.7.0_60.tar.gz)
-2. [hadoop-2.7.2](http://mirrors.cnnic.cn/apache/hadoop/common/hadoop-2.7.2/hadoop-2.7.2.tar.gz)
+1. [jdk1.7.0_60下载](http://119.254.110.32:8081/download/jdk1.7.0_60.tar.gz)
+2. [hadoop-2.7.2下载](http://mirrors.cnnic.cn/apache/hadoop/common/hadoop-2.7.2/hadoop-2.7.2.tar.gz)
+
 
 ## 生成镜像
 ```sh
@@ -26,7 +27,7 @@ bin/hadoop-cluster.sh stop 3
 
 ## 启动/关闭hadoop集群
 ```sh
-$HADOOP_HOME/sbin/start-all.sh
+$HADOOP_HOME/sbin/start-all.sh -y
 $HADOOP_HOME/sbin/stop-all.sh
 
 # 验证服务是否启动

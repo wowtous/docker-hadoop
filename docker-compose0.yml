@@ -1,0 +1,28 @@
+version: "2"
+services:
+    zk1:
+        image: zookeeper
+        container_name: zk1
+        environment:
+            - SERVER_ID=1
+            - ADDITIONAL_ZOOKEEPER_1=server.1=0.0.0.0:2888:3888
+            - ADDITIONAL_ZOOKEEPER_2=server.2=zk2:2888:3888
+            - ADDITIONAL_ZOOKEEPER_3=server.3=zk3:2888:3888
+
+    zk2:
+        image: zookeeper
+        container_name: zk2
+        environment:
+            - SERVER_ID=2
+            - ADDITIONAL_ZOOKEEPER_1=server.1=zk1:2888:3888
+            - ADDITIONAL_ZOOKEEPER_2=server.2=0.0.0.0:2888:3888
+            - ADDITIONAL_ZOOKEEPER_3=server.3=zk3:2888:3888
+
+    zk3:
+        image: zookeeper
+        container_name: zk3
+        environment:
+            - SERVER_ID=3
+            - ADDITIONAL_ZOOKEEPER_1=server.1=zk1:2888:3888
+            - ADDITIONAL_ZOOKEEPER_2=server.2=zk2:2888:3888
+            - ADDITIONAL_ZOOKEEPER_3=server.3=0.0.0.0:2888:3888

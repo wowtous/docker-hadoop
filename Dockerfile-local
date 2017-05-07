@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu
 MAINTAINER Darebeat <fengwei2010@126.com>
 
 ADD ./src /
@@ -12,18 +12,18 @@ ENV HADOOP_HOME /opt/hadoop-2.7.2
 ENV HADOOP_CONF_DIR $HADOOP_HOME/etc/hadoop
 ENV PATH $JAVA_HOME/bin:$HADOOP_HOME/bin:$PATH
 
-RUN cp /opt/config/* $HADOOP_CONF_DIR && rm -rf /opt/config
+# ssh without password
+RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
+    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && \
+    chmod 600 ~/.ssh/*
+
+RUN cp /opt/config/* $HADOOP_CONF_DIR && cp /opt/ssh/config ~/.ssh && rm -rf /opt/config
 RUN sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/opt/jdk1.7.0_60\nexport HADOOP_HOME=/opt/hadoop-2.7.2\n:' /opt/hadoop-2.7.2/etc/hadoop/hadoop-env.sh
 RUN chmod +x /opt/hadoop-2.7.2/etc/hadoop/*-env.sh
 
 RUN mkdir -p $HADOOP_HOME/hdfs/namenode && \
     mkdir -p $HADOOP_HOME/hdfs/datanode && \
     mkdir $HADOOP_HOME/logs
-
-# ssh without password
-RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
-    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && \
-    chmod 600 ~/.ssh/*
 
 # format namenode
 RUN $HADOOP_HOME/bin/hdfs namenode -format
